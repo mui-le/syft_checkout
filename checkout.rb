@@ -8,6 +8,8 @@
 # value with the discount included
 #
 
+require './promotional_rule'
+
 class Checkout
   def initialize(promotional_rules)
   end

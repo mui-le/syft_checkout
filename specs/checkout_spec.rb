@@ -2,6 +2,10 @@ require 'rspec'
 require './checkout'
 
 describe Checkout do
+  before do
+    PromotionalRule.initialize_from_config
+  end
+
   let(:promotional_rules) { PromotionalRule.all }
   let(:co) { Checkout.new(promotional_rules) }
 
