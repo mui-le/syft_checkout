@@ -26,12 +26,29 @@ class Checkout
   end
 
   def total_amount
-    (total_amount_without_discount + amounts_with_discount.sum()) / 100
+    (total_amount_without_discount + all_discounts) / 100
+  end
+
+  def all_discounts
+    all_cart_discounts + all_item_discounts + cart_discount_amendment
+  end
+
+  def cart_discount_amendment
+    return 0 if all_cart_discounts == 0
+    ((total_amount_without_discount / all_cart_discounts) / 100 * all_item_discounts).to_i
+  end
+
+  def all_cart_discounts
+    amounts_with_discount.inject(0){|a,r| a+= r.has_key?(:cart) ? r[:cart] : 0}
+  end
+
+  def all_item_discounts
+    amounts_with_discount.inject(0){|a,r| a+= r.has_key?(:item) ? r[:item] : 0}
   end
 
   def amounts_with_discount
     @promotional_rules.map do |rule|
-      rule.type == 'cart' ? cart_discount(rule) : item_discount(rule)
+      rule.type == 'cart' ? {cart: cart_discount(rule)} : {item: item_discount(rule)}
     end
   end
 
