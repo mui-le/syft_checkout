@@ -36,7 +36,7 @@ describe Product do
     describe 'instance methods' do
       it 'gets the code and price' do
         product = Product.find(1)
-        expect(product.code_and_price).to eq(['001',9.25])
+        expect(product.code_and_price).to eq(['001',925])
       end
     end
   end

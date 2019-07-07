@@ -37,9 +37,9 @@ class Product < FileRecord::FileYaml
   end
 
   ## Instance methods #########################################################
-  
+
   def code_and_price
-    [code,price_amount]
+    [code,price_amount*100]
   end
 
   def price_amount
