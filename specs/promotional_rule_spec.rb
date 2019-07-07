@@ -1,4 +1,5 @@
 require 'rspec'
+require './promotional_rule'
 
 describe PromotionalRule do
   before do
