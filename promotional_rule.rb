@@ -27,6 +27,31 @@
 #
 #
 
-class PromotionalRule
+require './lib/file_record/file_yaml'
 
+class PromotionalRule < FileRecord::FileYaml
+  DEFAULT_CONFIG_PATH = ['','app','config','promotional_rules.yml'].join('/')
+  @records = {}
+
+  attr_reader :id, :type, :requirement, :item_id,
+              :discount_percentage, :discount_amount
+
+  def initialize(params)
+    @id,
+    @type,
+    @requirement,
+    @item_id,
+    @discount_percentage,
+    @discount_amount = params.values_at(:id,
+                                        :type,
+                                        :requirement,
+                                        :item_id,
+                                        :discount_percentage,
+                                        :discount_amount)
+    freeze
+  end
+
+  def self.config_path
+    DEFAULT_CONFIG_PATH
+  end
 end
