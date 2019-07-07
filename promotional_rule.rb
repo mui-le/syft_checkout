@@ -3,6 +3,12 @@
 # Promotional rule is an abstraction to represent a single "promotional rule
 # class", say if "the spend is over £60 then apply 10% discount".
 #
+# These rules are pre-filled during development, so no DB storage required,
+# we just create in-memory objects and address them the usual way:
+#
+#   rule  = PromotionalRule.find `some_id`
+#   rules = PromotionalRule.all
+#
 # Each rule has the following attributes:
 #
 # - id: a string
