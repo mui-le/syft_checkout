@@ -1,6 +1,6 @@
 - id: 1
   type: cart
-  requirement: 60
+  requirement: 6000
   discount_percentage: 0.1
   discount_amount: 0
 - id: 2
@@ -8,4 +8,4 @@
   requirement: 2
   item_id: '001'
   discount_percentage: 0
-  discount_amount: 0.75
+  discount_amount: 75

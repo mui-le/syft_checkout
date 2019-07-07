@@ -23,7 +23,7 @@
 #
 # - discount_percentage: the percentage of discount applied
 #
-# - discount_amount: the amount of discount applied
+# - discount_amount: the amount of discount applied in cents
 #
 #
 
