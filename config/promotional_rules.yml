@@ -6,6 +6,6 @@
 - id: 2
   type: item
   requirement: 2
-  item_id: '002'
+  item_id: '001'
   discount_percentage: 0
   discount_amount: 0.75

@@ -36,11 +36,15 @@ class Checkout
   end
 
   def cart_discount(rule)
-    discount(rule) if total_amount_without_discount >= rule.requirement
+    total_amount_without_discount >= rule.requirement ? discount(rule) : 0
   end
 
   def item_discount(rule)
-    0
+    items_per_code(rule.item_id) >= rule.requirement.to_i ? discount(rule) : 0
+  end
+
+  def items_per_code(code)
+    count = @products.inject(Hash.new(0)) { |h, e| h[e[0]] += 1 ; h }[code]
   end
 
   def total_amount_without_discount
@@ -56,6 +60,6 @@ class Checkout
   end
 
   def amount_discount(rule)
-    0
+    - (items_per_code(rule.item_id) * rule.discount_amount)
   end
 end
