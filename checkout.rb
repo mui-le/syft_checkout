@@ -9,8 +9,19 @@
 #
 
 require './promotional_rule'
+require './product'
 
 class Checkout
   def initialize(promotional_rules)
+    @promotional_rules = promotional_rules
+    @products = []
+  end
+
+  def scan(product_code)
+    @products.append(Product.find_by('code',product_code).code_and_price)
+  end
+
+  def total
+
   end
 end
