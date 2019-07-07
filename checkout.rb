@@ -22,6 +22,40 @@ class Checkout
   end
 
   def total
+    '£' + total_amount.to_s
+  end
 
+  def total_amount
+    total_amount_without_discount + amounts_with_discount.sum()
+  end
+
+  def amounts_with_discount
+    @promotional_rules.map do |rule|
+      rule.type == 'cart' ? cart_discount(rule) : item_discount(rule)
+    end
+  end
+
+  def cart_discount(rule)
+    discount(rule) if total_amount_without_discount >= rule.requirement
+  end
+
+  def item_discount(rule)
+    0
+  end
+
+  def total_amount_without_discount
+    @products.inject(0){|acc,item| acc += item[1]}
+  end
+
+  def discount(rule)
+    percent_discount(rule) + amount_discount(rule)
+  end
+
+  def percent_discount(rule)
+    - (total_amount_without_discount * rule.discount_percentage)
+  end
+
+  def amount_discount(rule)
+    0
   end
 end
