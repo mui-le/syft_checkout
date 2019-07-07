@@ -1,4 +1,5 @@
 require 'rspec'
+require './product'
 
 describe Product do
   before do
@@ -15,10 +16,7 @@ describe Product do
 
   describe 'creates the object' do
     it 'responds to readers' do
-      product = Product.new({'id':2,'code': 2,
-                              'name': 'item',
-                              'price': 2
-                              })
+      product = Product.new({'id':2,'code': 2,'name': 'item','price': 2})
 
       expect(product).to have_attributes(id: 2,code: 2,name: 'item',price: 2)
     end
