@@ -3,17 +3,7 @@ require './promotional_rule'
 
 describe PromotionalRule do
   before do
-    PromotionalRule.create( id: 1,
-                            type: 'item',
-                            requirement: 2,
-                            item_id: '002',
-                            discount_percentage: 0,
-                            discount_amount: 0.75)
-    PromotionalRule.create( id: 2,
-                            type: 'cart',
-                            requirement: 40,
-                            discount_percentage: 0.1,
-                            discount_amount: 0)
+    PromotionalRule.initialize_from_config
   end
 
   let(:promotional_rules) { PromotionalRule.all }
