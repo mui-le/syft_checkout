@@ -41,3 +41,53 @@ Total price expected: £36.95
 Basket: 001,002,001,003
 Total price expected: £73.76
 ```
+
+## Code
+
+The code was developed using docker container with the following stack
+- ruby 2.6.3
+- rspec 3.8
+
+It should work in other versions but it was not tested.
+
+### Implementation design
+
+As it seems, the checkout is a stand-alone process and will work as a service, although no interface was provided, the assumption was the checkout process will work given a set of rules and products do not need to care where they are stored or test any other consistency in layers.
+
+Due to that reason, I decided to keep all these records (PromotionalRule and Product) in-memory, for this test they are provided via YAML file. In a production scenario it should goes via a provided interface - HTTP, Message Broker, etc.
+
+### Considerations
+There is no rule to prevent stacked promotional rules, meaning, if there are two discounts to the cart, eg. 10% and 20%, it will apply both, it was not described as a requirement and the assumption was it will be filtered before the Checkout initialization.
+
+### Testing
+The development was based on docker containers - please check Dockerfile - and here are the step-by-step to reproduce the tests. Again, it should work on any other environment but it was not tested. Also, I'm assuming docker is already installed.
+
+Clone the repo:
+```
+$ git clone https://github.com/ml-vilela/syft_checkout.git
+```
+
+Change to the project directory
+```
+$ cd syft_checkout
+```
+
+Build the image
+```
+$ docker build -t ruby-rspec:2.6.3 .
+```
+
+Execute the test
+```
+$ docker run -it -v `pwd`:'/app' ruby-rspec:2.6.3 rspec specs/
+```
+
+All should pass:
+```
+docker run -it -v `pwd`:'/app' ruby-rspec:2.6.3 rspec specs/
+............
+
+
+Finished in 0.40362 seconds (files took 0.61794 seconds to load)
+12 examples, 0 failures
+```
