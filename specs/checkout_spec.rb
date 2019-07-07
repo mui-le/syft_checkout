@@ -1,0 +1,38 @@
+require 'rspec'
+require './checkout'
+
+describe Checkout do
+  let(:promotional_rules) { PromotionalRule.all }
+  let(:co) { Checkout.new(promotional_rules) }
+
+  describe 'the total value' do
+    let(:item_001) { Product.find_by('code', '001') }
+    let(:item_002) { Product.find_by('code', '002') }
+    let(:item_003) { Product.find_by('code', '003') }
+
+    it 'has the checkout discount' do
+      co.scan(item_001)
+      co.scan(item_002)
+      co.scan(item_003)
+
+      expect(co.total).to eq '£66.78'
+    end
+
+    it 'has the item discount' do
+      co.scan(item_001)
+      co.scan(item_003)
+      co.scan(item_001)
+
+      expect(co.total).to eq '£36.95'
+    end
+
+    it 'has the checkout and item discounts' do
+      co.scan(item_001)
+      co.scan(item_002)
+      co.scan(item_001)
+      co.scan(item_003)
+
+      expect(co.total).to eq '£73.76'
+    end
+  end
+end
