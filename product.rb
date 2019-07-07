@@ -35,4 +35,14 @@ class Product < FileRecord::FileYaml
   def self.config_path
     DEFAULT_CONFIG_PATH
   end
+
+  ## Instance methods #########################################################
+  
+  def code_and_price
+    [code,price_amount]
+  end
+
+  def price_amount
+    price.gsub('£','').to_f
+  end
 end
