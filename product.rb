@@ -39,10 +39,10 @@ class Product < FileRecord::FileYaml
   ## Instance methods #########################################################
 
   def code_and_price
-    [code,price_amount*100]
+    [code,price_amount]
   end
 
   def price_amount
-    price.gsub('£','').to_f
+    price.gsub('£','').to_f * 100
   end
 end

@@ -26,7 +26,7 @@ class Checkout
   end
 
   def total_amount
-    total_amount_without_discount + amounts_with_discount.sum()
+    (total_amount_without_discount + amounts_with_discount.sum()) / 100
   end
 
   def amounts_with_discount
@@ -56,7 +56,7 @@ class Checkout
   end
 
   def percent_discount(rule)
-    - (total_amount_without_discount * rule.discount_percentage)
+    - (total_amount_without_discount * rule.discount_percentage).to_i
   end
 
   def amount_discount(rule)
