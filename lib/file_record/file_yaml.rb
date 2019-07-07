@@ -17,6 +17,7 @@
 
 
 require 'yaml'
+require './lib/extensions/hash'
 
 module FileRecord
   class FileYaml
