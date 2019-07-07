@@ -4,15 +4,16 @@ require './checkout'
 describe Checkout do
   before do
     PromotionalRule.initialize_from_config
+    Product.initialize_from_config
   end
 
   let(:promotional_rules) { PromotionalRule.all }
   let(:co) { Checkout.new(promotional_rules) }
 
   describe 'the total value' do
-    let(:item_001) { Product.find_by('code', '001') }
-    let(:item_002) { Product.find_by('code', '002') }
-    let(:item_003) { Product.find_by('code', '003') }
+    let(:item_001) { '001' }
+    let(:item_002) { '002' }
+    let(:item_003) { '003' }
 
     it 'has the checkout discount' do
       co.scan(item_001)
