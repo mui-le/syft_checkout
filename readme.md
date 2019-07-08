@@ -54,7 +54,7 @@ It should work in other versions but it was not tested.
 
 As it seems, the checkout is a stand-alone process and will work as a service, although no interface was provided, the assumption was the checkout process will work given a set of rules and products do not need to care where they are stored or test any other consistency in layers.
 
-Due to that reason, I decided to keep all these records (PromotionalRule and Product) in-memory, for this test they are provided via YAML file. In a production scenario it should goes via a provided interface - HTTP, Message Broker, etc.
+Due to that reason, I decided to keep all these records (PromotionalRule and Product) in-memory, for this test they are provided via a YAML file. In a production scenario, it should go via a provided interface - HTTP, Message Broker, etc.
 
 ### Considerations
 There is no rule to prevent stacked promotional rules, meaning, if there are two discounts to the cart, eg. 10% and 20%, it will apply both, it was not described as a requirement and the assumption was it will be filtered before the Checkout initialization.
