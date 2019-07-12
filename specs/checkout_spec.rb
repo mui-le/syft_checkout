@@ -65,6 +65,17 @@ describe Checkout do
         expect(co.total).to eq '£76.41'
       end
 
+      it 'has discount if there are 6 items' do
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+
+        expect(co.total).to eq '£79.80'
+      end
+
 
     end
   end
