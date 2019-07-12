@@ -90,7 +90,9 @@ class Checkout
   def free_item_discount(rule)
     # select the products matching the item_id of promotional rule and get the
     # price
-    product_price = @products.select{|p| p[0] == rule.item_id}.uniq.first&.last
-    product_price ? - (rule.discount_free_item * product_price) : 0
+    items = @products.select{|p| p[0] == rule.item_id}
+    product_price = items.uniq.first&.last
+    times_to_apply = items.count / rule.requirement
+    product_price ? - (rule.discount_free_item * product_price * times_to_apply) : 0
   end
 end
