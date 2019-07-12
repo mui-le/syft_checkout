@@ -39,5 +39,33 @@ describe Checkout do
 
       expect(co.total).to eq '£73.76'
     end
+
+    describe 't-shirt promo' do
+      it 'has no discount if there are 2 items' do
+        co.scan(item_003)
+        co.scan(item_003)
+
+        expect(co.total).to eq '£39.90'
+      end
+
+      it 'has discount if there are 3 items' do
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+
+        expect(co.total).to eq '£39.90'
+      end
+
+      it 'has discount if there are 3 items and one additional item' do
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_003)
+        co.scan(item_002)
+
+        expect(co.total).to eq '£76.41'
+      end
+
+
+    end
   end
 end

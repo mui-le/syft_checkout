@@ -22,7 +22,7 @@ class Checkout
   end
 
   def total
-    '£' + total_amount.to_s
+    '£' + '%.2f' % total_amount
   end
 
   def total_amount
@@ -33,6 +33,7 @@ class Checkout
     all_cart_discounts + all_item_discounts + cart_discount_amendment
   end
 
+  # Cart discount
   def cart_discount_amendment
     return 0 if all_cart_discounts == 0
     ((total_amount_without_discount / all_cart_discounts) / 100 * all_item_discounts).to_i
@@ -42,23 +43,27 @@ class Checkout
     amounts_with_discount.inject(0){|a,r| a+= r.has_key?(:cart) ? r[:cart] : 0}
   end
 
+  def cart_discount(rule)
+    total_amount_without_discount >= rule.requirement ? discount(rule) : 0
+  end
+
+
+  # Item discount
   def all_item_discounts
     amounts_with_discount.inject(0){|a,r| a+= r.has_key?(:item) ? r[:item] : 0}
   end
 
+  def item_discount(rule)
+    items_per_code(rule.item_id) >= rule.requirement.to_i ? discount(rule) : 0
+  end
+
+  #
   def amounts_with_discount
     @promotional_rules.map do |rule|
       rule.type == 'cart' ? {cart: cart_discount(rule)} : {item: item_discount(rule)}
     end
   end
 
-  def cart_discount(rule)
-    total_amount_without_discount >= rule.requirement ? discount(rule) : 0
-  end
-
-  def item_discount(rule)
-    items_per_code(rule.item_id) >= rule.requirement.to_i ? discount(rule) : 0
-  end
 
   def items_per_code(code)
     count = @products.inject(Hash.new(0)) { |h, e| h[e[0]] += 1 ; h }[code]
@@ -69,7 +74,9 @@ class Checkout
   end
 
   def discount(rule)
-    percent_discount(rule) + amount_discount(rule)
+    f = free_item_discount(rule)
+
+    percent_discount(rule) + amount_discount(rule) + f
   end
 
   def percent_discount(rule)
@@ -78,5 +85,12 @@ class Checkout
 
   def amount_discount(rule)
     - (items_per_code(rule.item_id) * rule.discount_amount)
+  end
+
+  def free_item_discount(rule)
+    # select the products matching the item_id of promotional rule and get the
+    # price
+    product_price = @products.select{|p| p[0] == rule.item_id}.uniq.first&.last
+    product_price ? - (rule.discount_free_item * product_price) : 0
   end
 end

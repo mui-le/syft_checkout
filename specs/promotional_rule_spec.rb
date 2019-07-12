@@ -10,7 +10,7 @@ describe PromotionalRule do
 
   describe 'loads the records' do
     it 'has the correct number of records' do
-      expect(promotional_rules.count).to eq 2
+      expect(promotional_rules.count).to eq 3
     end
   end
 
@@ -21,7 +21,8 @@ describe PromotionalRule do
                                   'requirement': 2,
                                   'item_id': '002',
                                   'discount_percentage': 0,
-                                  'discount_amount': 0.75
+                                  'discount_amount': 0.75,
+                                  'discount_free_item': 1
                                   })
 
       expect(rule).to have_attributes(id: 3,
@@ -29,7 +30,8 @@ describe PromotionalRule do
                                       requirement: 2,
                                       item_id: '002',
                                       discount_percentage: 0,
-                                      discount_amount: 0.75
+                                      discount_amount: 0.75,
+                                      discount_free_item: 1
                                     )
     end
 

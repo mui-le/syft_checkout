@@ -42,6 +42,24 @@ Basket: 001,002,001,003
 Total price expected: £73.76
 ```
 
+### New test
+Our marketing team have added another promotions as an incentive for our customers to purchase these items.
+
+If you buy 3 Kids T-shirt then the third one is free.
+
+
+Test data
+---------
+Basket: 003, 003
+Total price expected: £39.90
+
+Basket: 003, 003, 003
+Total price expected: £39.90
+
+Basket: 003, 003, 003, 002
+Total price expected: £76.41
+
+
 ## Code
 
 The code was developed using docker container with the following stack

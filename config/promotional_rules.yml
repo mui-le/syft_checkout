@@ -3,9 +3,18 @@
   requirement: 6000
   discount_percentage: 0.1
   discount_amount: 0
+  discount_free_item: 0
 - id: 2
   type: item
   requirement: 2
   item_id: '001'
   discount_percentage: 0
   discount_amount: 75
+  discount_free_item: 0
+- id: 3
+  type: item
+  requirement: 3
+  item_id: '003'
+  discount_percentage: 0
+  discount_amount: 0
+  discount_free_item: 1

@@ -25,6 +25,8 @@
 #
 # - discount_amount: the amount of discount applied in cents
 #
+# - discount_free_item: the number of items that will be free
+#
 #
 
 require './lib/file_record/file_yaml'
@@ -34,7 +36,7 @@ class PromotionalRule < FileRecord::FileYaml
   @records = {}
 
   attr_reader :id, :type, :requirement, :item_id,
-              :discount_percentage, :discount_amount
+              :discount_percentage, :discount_amount, :discount_free_item
 
   def initialize(params)
     @id,
@@ -42,12 +44,15 @@ class PromotionalRule < FileRecord::FileYaml
     @requirement,
     @item_id,
     @discount_percentage,
-    @discount_amount = params.values_at(:id,
+    @discount_amount,
+    @discount_free_item = params.values_at(:id,
                                         :type,
                                         :requirement,
                                         :item_id,
                                         :discount_percentage,
-                                        :discount_amount)
+                                        :discount_amount,
+                                        :discount_free_item
+                                      )
     freeze
   end
 
