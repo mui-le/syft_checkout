@@ -73,7 +73,7 @@ describe Checkout do
         co.scan(item_003)
         co.scan(item_003)
 
-        expect(co.total).to eq '£79.80'
+        expect(co.total).to eq '£71.82'
       end
 
 
